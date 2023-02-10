@@ -9,12 +9,10 @@ RUN useradd -ms /bin/bash banana
 WORKDIR /app
 
 RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git && \
-    cd stable-diffusion-webui && \
-    git checkout 3e0f9a75438fa815429b5530261bcf7d80f3f101
+    cd stable-diffusion-webui
 WORKDIR /app/stable-diffusion-webui
 
-
-RUN wget -O models/Stable-diffusion/model.safetensors 'https://huggingface.co/FluttyProger/HentaiModelMix/resolve/main/abyssorangemix2_pruned.safetensors'
+RUN wget -O models/Stable-diffusion/model.ckpt 'https://huggingface.co/pedx78/pfg_mixes/resolve/main/sdaes_delib_pfg_retro.ckpt'
 RUN echo 2
 RUN wget -O models/Stable-diffusion/model.vae.pt 'https://huggingface.co/iZELX1/Grapefruit/resolve/main/Grapefruit.vae.pt'
 RUN echo 2
@@ -31,4 +29,4 @@ ADD script.py extensions/banana/scripts/banana.py
 ADD app.py app.py
 ADD server.py server.py
 
-CMD ["python", "server.py", "--xformers", "--disable-safe-unpickle", "--lowram", "--no-hashing", "--listen", "--port", "8000", "--ckpt", "./models/Stable-diffusion/model.safetensors"]
+CMD ["python", "server.py", "--xformers", "--disable-safe-unpickle", "--lowram", "--no-hashing", "--listen", "--port", "8000"]
